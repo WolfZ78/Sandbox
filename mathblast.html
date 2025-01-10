@@ -8,18 +8,34 @@
   <script src="https://wolfz78.github.io/Sandbox/js-dos.js" defer></script>
 </head>
 <body>
-  <div id="dosbox" style="width: 80%; height: 500px; margin: auto; border: 1px solid #000;"></div>
+  <div id="dosbox" style="width: 80%; height: 500px; margin: auto; border: 1px solid #000;">
+    <!-- DOSBox emulator will load here -->
+  </div>
   <script>
-    // Wait until the script is fully loaded
+    // Run this function once the DOM is fully loaded
     window.onload = function () {
-      if (typeof Dos !== "undefined") {
-        Dos(document.getElementById("dosbox"), {
-          wdosboxUrl: "https://wolfz78.github.io/Sandbox/wdosbox.js",
-        }).ready((fs, main) => {
-          fs.extract("https://vfat.classicreload.com/msdos_mblastplus/mblastplus.zip").then(() => main(["MATH.EXE"]));
-        });
-      } else {
-        console.error("JS-DOS failed to load.");
+      try {
+        // Check if the JS-DOS library is loaded
+        if (typeof Dos !== "undefined") {
+          // Initialize DOSBox with the provided configuration
+          Dos(document.getElementById("dosbox"), {
+            wdosboxUrl: "https://wolfz78.github.io/Sandbox/wdosbox.js", // Path to wdosbox.js
+          }).ready((fs, main) => {
+            // Extract and load the game files
+            fs.extract("https://vfat.classicreload.com/msdos_mblastplus/mblastplus.zip")
+              .then(() => {
+                main(["MATH.EXE"]); // Start the main game executable
+              })
+              .catch((error) => {
+                console.error("Failed to extract game files:", error);
+              });
+          });
+        } else {
+          throw new Error("JS-DOS library not loaded.");
+        }
+      } catch (error) {
+        // Log any errors that occur during initialization
+        console.error("Error initializing JS-DOS:", error);
       }
     };
   </script>
