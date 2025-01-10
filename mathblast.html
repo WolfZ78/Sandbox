@@ -4,24 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math Blaster</title>
-  <!-- JS-DOS Library -->
-  <script src="https://js-dos.com/v7/js-dos.js" defer></script>
+  <link rel="stylesheet" href="js-dos.css"> <!-- Optional styling -->
+  <script src="js-dos.js"></script>
 </head>
 <body>
   <div id="dosbox" style="width: 80%; height: 500px; margin: auto; border: 1px solid #000;"></div>
   <script>
-    // Wait until the script is fully loaded
-    window.onload = function () {
-      if (typeof Dos !== "undefined") {
-        Dos(document.getElementById("dosbox"), {
-          wdosboxUrl: "https://js-dos.com/v7/wdosbox.js",
-        }).ready((fs, main) => {
-          fs.extract("https://vfat.classicreload.com/msdos_mblastplus/mblastplus.zip").then(() => main(["MATH.EXE"]));
-        });
-      } else {
-        console.error("JS-DOS failed to load.");
-      }
-    };
+    Dos(document.getElementById("dosbox"), {
+      wdosboxUrl: "emulators/wdosbox.js", // Correct local path
+    }).ready((fs, main) => {
+      fs.extract("https://vfat.classicreload.com/msdos_mblastplus/mblastplus.zip").then(() => main(["MATH.EXE"]));
+    });
   </script>
 </body>
 </html>
