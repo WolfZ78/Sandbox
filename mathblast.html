@@ -1,0 +1,9 @@
+<script src="https://js-dos.com/v7/js-dos.js"></script>
+<div id="dosbox"></div>
+<script>
+  Dos(document.getElementById("dosbox"), {
+    wdosboxUrl: "https://js-dos.com/v7/wdosbox.js",
+  }).ready((fs, main) => {
+    fs.extract("https://vfat.classicreload.com/msdos_mblastplus/mblastplus.zip").then(() => main(["MATH.EXE"]));
+  });
+</script>
